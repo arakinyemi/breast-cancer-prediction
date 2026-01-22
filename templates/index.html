@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+    
+    <div class="container">
+        <div class="glass-card">
+            <h1>Breast Cancer Predictor</h1>
+            <p class="subtitle">Enter tumor features below to analyze</p>
+            
+            <form action="/predict" method="POST">
+                <div class="input-group">
+                    <label for="radius_mean">Radius Mean</label>
+                    <input type="number" step="any" id="radius_mean" name="radius_mean" placeholder="e.g. 14.2" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="texture_mean">Texture Mean</label>
+                    <input type="number" step="any" id="texture_mean" name="texture_mean" placeholder="e.g. 20.5" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="perimeter_mean">Perimeter Mean</label>
+                    <input type="number" step="any" id="perimeter_mean" name="perimeter_mean" placeholder="e.g. 90.0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="smoothness_mean">Smoothness Mean</label>
+                    <input type="number" step="any" id="smoothness_mean" name="smoothness_mean" placeholder="e.g. 0.09" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="concavity_mean">Concavity Mean</label>
+                    <input type="number" step="any" id="concavity_mean" name="concavity_mean" placeholder="e.g. 0.05" required>
+                </div>
+
+                <button type="submit" class="btn-predict">Analyze Result</button>
+            </form>
+
+            {% if prediction_text %}
+            <div class="result-box {% if 'Malignant' in prediction_text %}malignant{% else %}benign{% endif %}">
+                {{ prediction_text }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
